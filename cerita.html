@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tempat Cerita — Ruang Aksara</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .story-banner {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 14px;
+      margin-bottom: 2rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="brand">📖 Ruang Aksara</a>
+    <nav>
+      <a href="index.html">Beranda</a>
+      <a href="cerita.html" class="active">Tempat Cerita</a>
+      <a href="tentang.html">Tentang</a>
+    </nav>
+    <button id="theme-toggle">🌙 Mode Malam</button>
+  </header>
+
+  <main class="container">
+    <!-- TAMPILAN 1: KATALOG & FILTER KATEGORI -->
+    <div id="catalog-view">
+      <h1 style="text-align: center; margin-bottom: 0.5rem;">Katalog Tempat Cerita</h1>
+      <p style="text-align: center; color: var(--text-muted); margin-bottom: 1.8rem;">Pilih kategori atau klik judul cerita untuk membaca kisah pilihan dengan ilustrasi visual yang sesuai temanya.</p>
+
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">Semua Cerita (20)</button>
+        <button class="filter-btn" data-filter="romantis">Romantis</button>
+        <button class="filter-btn" data-filter="dongeng">Dongeng & Fantasi</button>
+        <button class="filter-btn" data-filter="rakyat">Cerita Rakyat</button>
+        <button class="filter-btn" data-filter="drama">Drama & Kehidupan</button>
+        <button class="filter-btn" data-filter="misteri">Misteri</button>
+        <button class="filter-btn" data-filter="scifi">Sci-Fi</button>
+      </div>
+
+      <div id="story-grid" class="grid"></div>
+    </div>
+
+    <!-- TAMPILAN 2: MODE BACA SATU CERITA TERPILIH -->
+    <div id="reader-view" class="reader-box hidden">
+      <button class="btn-back" onclick="closeReader()">← Kembali ke Daftar Cerita</button>
+      <img id="reader-image" class="story-banner" src="" alt="Ilustrasi Tema Cerpen">
+      <h2 id="reader-title"></h2>
+      <div id="reader-meta" class="meta"></div>
+      <div id="reader-content" class="reader-content"></div>
+      <div style="margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.5rem;">
+        <button class="btn-back" onclick="closeReader()">← Pilih Cerita Lainnya</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 Ruang Aksara — Proyek Akhir Cloud Computing XII RPL</p>
+  </footer>
+
+  <script>
+    // Database 20 Cerita (Dengan Gambar Ilustrasi yang Disesuaikan Spesifik Per Tema)
+    const stories = [
+      {
+        id: 1,
+        title: "Hujan di Bulan November",
+        category: "drama",
+        label: "Drama & Kehidupan",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1519692933481-e162a57d6721?auto=format&fit=crop&w=1200&q=80", // Tema: Hujan & Suasana Sendu
+        excerpt: "Pertemuan tak terduga di halte bus tua yang membuka kembali lembaran masa lalu.",
+        paragraphs: [
+          "Rintik hujan sore itu turun lebih deras dari biasanya, seolah langit menumpahkan seluruh beban kesedihan yang tertahan sejak awal musim gugur. Raka tergesa-gesa melangkah, mencari perlindungan hingga akhirnya menemukan sebuah halte bus tua beratap seng yang mulai berkarat di ujung jalan Ahmad Yani.",
+          "Di tempat yang sunyi itu, hanya terdengar suara deru kendaraan yang melintas sesekali dan air yang menetes dari talang yang bocor, menciptakan irama monoton yang menusuk relung hati. Sembari mengatur napasnya yang sedikit memburu akibat berlari kecil menerobos genangan air, Raka merapikan jaket parasutnya yang basah di bagian bahu.",
+          "Ia merogoh saku celananya, berniat memeriksa apakah ponselnya masih memiliki daya untuk sekadar mengecek waktu, namun layar benda pipih itu tetap gelap gulita—baterainya telanjur mati total karena suhu dingin. Di sudut lain halte yang agak temaram, seorang gadis duduk tenang sambil mendekap erat sebuah buku catatan bersampul kulit tua berwarna cokelat gelap.",
+          "Tanpa sengaja, ketika angin kencang menerobos masuk dan membuat gadis itu sedikit bergeser, selembar foto lama yang terselip di dalam buku tersebut terlepas dan melayang pelan, jatuh tepat di dekat sepatu Raka. Dengan gerakan refleks, Raka menunduk, memungut foto hitam-putih tersebut, dan seketika ia terpaku di tempatnya.",
+          "Jantungnya mendadak berdegup kencang ketika melihat objek di dalam foto usang itu: sebuah pohon beringin besar di halaman belakang sekolah menengah pertama yang sama, di mana dua anak kecil tersenyum lebar sambil memegang sepeda—foto masa kecil ayahnya yang selama ini tersimpan sangat rapi di dalam dompet tua milik Raka.",
+          "“Mencari ini?” suara Raka terdengar sedikit bergetar, memecah keheningan di antara deru air hujan saat ia mengulurkan foto tersebut kepada sang pemilik. Gadis itu menoleh pelan, matanya membelalak kaget sebelum akhirnya sebuah senyuman tipis yang menenangkan tersungging di bibirnya.",
+          "“Terima kasih banyak, aku mengira foto itu hilang terselip di perpustakaan kota minggu lalu,” jawabnya dengan suara yang begitu lembut. Dari pertemuan yang teramat kebetulan di bawah naungan halte tua itu, percakapan panjang mulai mengalir begitu saja, merajut kembali benang-benang takdir keluarga yang sempat terputus oleh jarak, waktu, dan takdir.",
+          "Hujan perlahan mulai mereda, menyisakan tetesan air yang jatuh dari ujung-ujung daun pohon ketapang di tepi jalan dan aroma tanah basah yang menyegarkan. Raka menatap ke luar halte, menyadari bahwa terkadang badai terberat dalam hidup diciptakan bukan untuk menenggelamkan kita, melainkan untuk mempertemukan kita dengan jiwa-jiwa asing yang membawa kehangatan baru di saat yang paling tidak terduga."
+        ]
+      },
+      {
+        id: 2,
+        title: "Bintang Jatuh di Atas Atap Sekolah",
+        category: "romantis",
+        label: "Romantis",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80", // Tema: Langit Malam & Bintang
+        excerpt: "Momen berharga saat dua sahabat duduk di atas atap sekolah menikmati hujan meteor.",
+        paragraphs: [
+          "Malam perpisahan sekolah tahun itu dihiasi oleh langit malam yang begitu cerah tanpa sehelai awan pun, dipenuhi oleh ribuan taburan bintang gemerlap yang membentang luas bagaikan permadani berlian. Alih-alih ikut berdesakan di dalam aula utama yang bising oleh suara musik disko dan gelak tawa riuh siswa-siswi lain, Arka dan Naya memilih untuk menyelinap naik secara diam-diam melalui tangga darurat menuju atap beton gedung perpustakaan yang sunyi.",
+          "Angin malam berembus sejuk menyapa kulit, membawa serta aroma harum dedaunan dan bunga taman dari halaman sekolah di bawah sana. Mereka duduk berdampingan di atas sebuah bangku kayu tua yang sengaja diletakkan di dekat dinding pembatas, memandangi garis cakrawala kota yang dihiasi kerlap-kerlip lampu gedung.",
+          "“Tiga tahun masa SMA berlalu begitu cepat ya, rasanya seperti baru kemarin kita orientasi siswa,” gumam Naya pelan sambil mendongak menatap luasnya galaksi di atas sana. Arka menoleh sekilas ke samping, memperhatikan binar mata sahabat perempuannya itu yang selama ini selalu menjadi tempat berlindungnya.",
+          "Tepat ketika sebuah meteor melintas sangat terang, membelah langit gelap dan meninggalkan garis cahaya keemasan yang memukau, Arka memberanikan diri menarik napas dalam-dalam untuk menenangkan degup jantungnya. Ia perlahan menggenggam jemari tangan Naya yang terasa dingin di udara malam, lalu menatap manik mata gadis itu lekat-lekat.",
+          "“Naya, sebelum kita benar-benar berpisah menempuh jalan universitas masing-masing, ada satu rahasia penting yang ingin aku katakan kepadamu malam ini. Selama tiga tahun ini, bintang paling terang di dalam hidupku bukanlah yang bersinar di langit sana, melainkan kamu,” ucap Arka dengan suara yang sarat akan ketulusan.",
+          "Naya tertegun kencang seketika, aliran napasnya seolah berhenti sejenak mendengar kejujuran dari sahabat karibnya itu. Air mata kebahagiaan menetes pelan di pipinya diiringi senyuman terindah yang pernah Arka saksikan.",
+          "Malam itu, di bawah naungan jutaan bintang yang menjadi saksi bisu, persahabatan mereka bertransformasi menjadi sebuah ikatan cinta yang suci dan mendalam. Mereka berjanji untuk saling menjaga hati meskipun jarak dan waktu kelak akan memisahkan langkah mereka setelah kelulusan.",
+          "Kisah di atas atap sekolah tersebut kelak akan selalu dikenang sebagai babak paling manis dalam lembaran kisah remaja mereka, abadi selamanya bersama kehangatan cahaya bintang malam itu."
+        ]
+      },
+      {
+        id: 3,
+        title: "Asal-Usul Rawa Pening",
+        category: "rakyat",
+        label: "Cerita Rakyat",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80", // Tema: Danau / Rawa / Alam
+        excerpt: "Kisah legendaris dari tanah Jawa mengenai keajaiban sebatang lidi dan kutukan kesombongan.",
+        paragraphs: [
+          "Dahulu kala di lereng Gunung Merbabu, hiduplah seekor naga ajaib bernama Baru Klinting yang berwujud seekor naga sakti bertapa demi mencari jati diri dan asal usul keluarganya.",
+          "Suatu hari, naga tersebut mengubah wujudnya menjadi seorang anak laki-laki berpenampilan kotor dan penuh luka kudis, lalu berjalan turun menuju sebuah desa makmur bernama Ngasem.",
+          "Sesampainya di desa tersebut, anak kecil itu berjalan dari rumah ke rumah memohon sedikit belas kasihan berupa makanan karena ia merasa sangat lapar dan kehausan setelah perjalanan jauh.",
+          "Namun, hampir seluruh warga desa menolak mentah-mentah kehadirannya dengan nada menghina, mencaci maki, bahkan mengusirnya secara kasar karena jijik melihat kondisi fisiknya.",
+          "Hanya ada satu seorang wanita paruh baya berhati mulia bernama Nyi Latung yang dengan tulus menyambut anak tersebut ke dalam rumahnya dan memberinya semangkuk nasi hangat.",
+          "Sebelum berpamitan pergi meninggalkan rumah Nyi Latung, anak sakti itu berpesan agar wanita tua tersebut segera menyiapkan perahu lesung dan tongkat penusuk tanah jika terjadi hujan besar.",
+          "Di tengah lapangan desa, anak itu menancapkan sebatang lidi ke tanah dan menantang seluruh warga desa untuk mencabutnya, namun tak seorang pun warga yang mampu mencabut lidi tersebut.",
+          "Begitu lidi dicabut oleh sang anak, air menyembur keluar dengan derasnya dari lubang tanah hingga menenggelamkan seluruh desa dan membentuk sebuah danau luas yang kini dikenal sebagai Rawa Pening."
+        ]
+      },
+      {
+        id: 4,
+        title: "Legenda Sangkuriang",
+        category: "rakyat",
+        label: "Cerita Rakyat",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80", // Tema: Gunung / Pegunungan
+        excerpt: "Kisah terciptanya Gunung Tangkuban Perahu akibat cinta terlarang di tanah Parahyangan.",
+        paragraphs: [
+          "Alkisah di bumi Parahyangan, hiduplah seorang putri raja yang sangat cantik jelita bernama Dayang Sumbi bersama seekor anjing kesayangannya yang bernama Tumang.",
+          "Suatu hari ketika sedang menenun kain di beranda istana, alat tenun Dayang Sumbi terjatuh ke bawah kolong, dan karena malas ia bersumpah akan menikahi siapa pun yang mau mengambilkannya.",
+          "Tanpa disangka, si anjing kesayangan bernama Tumang datang membawakan alat tenun tersebut, memaksa Dayang Sumbi menepati sumpahnya dan melahirkan seorang anak laki-laki bernama Sangkuriang.",
+          "Sangkuriang tumbuh menjadi pemuda yang gagah perkasa dan gemar berburu di hutan ditemani oleh Tumang, tanpa pernah mengetahui bahwa anjing setia itu adalah ayah kandungnya sendiri.",
+          "Suatu ketika karena Tumang gagal menangkap rusa buruan, Sangkuriang marah besar dan membunuh anjing tersebut, lalu membawa hatinya pulang untuk dimasak sebagai hidangan malam.",
+          "Ketika Dayang Sumbi mengetahui bahwa daging yang ia santap adalah hati Tumang, ia murka seketika dan memukul kepala Sangkuriang menggunakan centong nasi hingga pemuda itu pergi meninggalkan rumah.",
+          "Bertahun-tahun kemudian, Sangkuriang tumbuh dewasa dan kembali tanpa sengaja jatuh cinta pada Dayang Sumbi yang wajahnya tetap awet muda berkat kesaktian para leluhur.",
+          "Menyadari pemuda itu adalah anaknya, Dayang Sumbi mengajukan syarat mustahil untuk membendung Sungai Citarum dan membuat perahu besar dalam semalam, yang gagal dan berujung kemarahan hingga terciptalah Gunung Tangkuban Perahu."
+        ]
+      },
+      {
+        id: 5,
+        title: "Malin Kundang Si Anak Durhaka",
+        category: "rakyat",
+        label: "Cerita Rakyat",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80", // Tema: Pantai & Laut
+        excerpt: "Pelajaran moral berharga dari pesisir Sumatra Barat tentang bakti seorang anak kepada ibu.",
+        paragraphs: [
+          "Di sebuah perkampungan nelayan pantai di pesisir Sumatra Barat, hiduplah seorang ibu miskin bersama anak laki-lakinya satu-satunya yang bernama Malin Kundang.",
+          "Sang ibu membesarkan Malin dengan penuh keringat dan kasih sayang setelah ayahnya meninggal dunia, hingga Malin beranjak dewasa dan berniat merantau mengubah nasib.",
+          "Dengan menumpang kapal besar milik seorang saudagar kaya, Malin merantau ke negeri seberang dan bekerja dengan sangat ulet hingga akhirnya ia sukses menjadi saudagar besar.",
+          "Ia bahkan menikahi putri bangsawan pemilik kapal dagang tersebut dan memiliki armada kapal megah yang singgah di berbagai pelabuhan besar di nusantara.",
+          "Suatu ketika, kapal mewah Malin berlabuh di kampung halaman masa kecilnya, memicu kehebohan warga desa yang mengenali pemuda tersebut sebagai anak kandung Nurbainah.",
+          "Mendengar kabar kepulangan anaknya, sang ibu berlari terbirit-birit ke pelabuhan dengan linangan air mata rindu, namun Malin merasa malu mengakui ibunya yang berpakaian kotor.",
+          "Di hadapan istri bangsawan dan para anak buahnya, Malin dengan tega menghardik serta menolak mentah-mentah pelukan sang ibu yang datang berlutut memohon melepas rindu.",
+          "Hati sang ibu hancur berkeping-keping, lalu ia menengadahkan tangan memanjatkan doa kepada Sang Kuasa, seketika petir menyambar dan Malin Kundang berubah menjadi batu karang di tepi pantai."
+        ]
+      },
+      {
+        id: 6,
+        title: "Timun Mas dan Raksasa",
+        category: "rakyat",
+        label: "Cerita Rakyat",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80", // Tema: Hutan / Rimba LeBAT
+        excerpt: "Keberanian seorang gadis kecil melarikan diri dari kejaran raksasa menggunakan benda sakti.",
+        paragraphs: [
+          "Di sebuah desa terpencil, hiduplah seorang wanita paruh baya sebatang kara bernama Mbok Srini yang sangat mendambakan kehadiran seorang anak di dalam rumahnya.",
+          "Suatu hari, seorang raksasa sakti penunggu hutan memberikan sebutir biji mentimun emas kepada Mbok Srini dengan syarat anak yang lahir kelak harus diserahkan kembali saat berusia 17 tahun.",
+          "Dari biji mentimun itu lahir lah seorang bayi perempuan cantik berkulit kuning langsat yang dinamai Timun Mas, tumbuh menjadi gadis cerdas dan berhati mulia.",
+          "Tepat di hari ulang tahun Timun Mas yang ketujuh belas, sang raksasa datang menagih janji untuk membawa gadis itu ke dalam hutan belantara sebagai santapan.",
+          "Mbok Srini yang diliputi kepedihan mendalam memberikan empat kantong kecil berisi biji mentimun, jarum, garam, dan terasi kepada Timun Mas untuk bekal melarikan diri.",
+          "Ketika raksasa jahat itu mengejarnya dengan langkah besar, Timun Mas melemparkan kantong biji mentimun yang seketika berubah menjadi ladang duri tajam melilit kaki sang raksasa.",
+          "Lemparan jarum berubah menjadi rumpun bambu runcing, dan lemparan garam mengubah hutan menjadi lautan luas yang hampir menenggelamkan monster tersebut.",
+          "Lemparan terakhir berupa terasi ajaib berubah menjadi lautan lumpur mendidih yang menelan sang raksasa untuk selamanya, menyelamatkan Timun Mas dan ibunya dalam kedamaian."
+        ]
+      },
+      {
+        id: 7,
+        title: "Petualangan di Perpustakaan Tua",
+        category: "dongeng",
+        label: "Dongeng & Fantasi",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80", // Tema: Perpustakaan & Buku Kuno
+        excerpt: "Buku bersampul kulit naga yang membawa pembacanya masuk ke dalam kerajaan sihir.",
+        paragraphs: [
+          "Di sudut paling gelap dan tersembunyi dari perpustakaan pusat kota yang jarang dikunjungi orang, berdiri sebuah rak buku mahoni tinggi yang dipenuhi tumpukan naskah kuno berdebu tebal. Rian, seorang remaja lelaki yang sejak kecil sangat gemar membaca kisah-kisah dongeng kepahlawanan, merasa terpanggil untuk menarik sebuah buku tebal bersampul kulit naga berwarna hijau zamrud.",
+          "Begitu ujung jarinya menyentuh sampul buku itu dan ia membuka halaman pertamanya yang bertuliskan deretan mantra kuno dalam huruf emas mengkilap, ruangan perpustakaan di sekitarnya tiba-tiba berputar kencang menciptakan pusaran angin kecil. Suara bising kendaraan di luar sana seketika lenyap seketika, tergantikan oleh desau angin sepoi-sepoi yang membawa aroma harum bunga lavender.",
+          "Ketika Rian membuka kedua matanya kembali, pemandangan di hadapannya telah berubah total; ia tidak lagi berdiri di lantai keramik perpustakaan kota, melainkan di tengah padang rumput hijau mahaklua di bawah naungan langit senja berwarna ungu keemasan.",
+          "Di ujung cakrawala, berdiri megah sebuah kastil kristal transparan yang dikelilingi oleh aliran sungai berair perak yang berkilauan diterpa cahaya matahari terbenam. Seekor burung phoenix kecil berbulu keemasan tiba-tiba terbang mendekat dan hinggap dengan lembut di bahu kanan Rian.",
+          "Burung kecil itu berbisik langsung ke dalam benak Rian, memberitahu bahwa dirinya telah terpilih oleh takdir sebagai Ksatria Ramalan untuk memulihkan kristal cahaya pelindung negeri dongeng dari cengkeraman penyihir bayangan jahat yang mengancam kedamaian dunia.",
+          "Berbekal keberanian luar biasa dan pelajaran hidup dari ratusan kisah buku yang pernah ia tamatkan semasa kecil, Rian melangkah pasti menyeberangi jembatan kristal yang berkilau terang di hadapannya.",
+          "Ia harus melewati berbagai rintangan ajaib, mulai dari hutan labirin peri hingga lembah naga api, demi mencari pecahan terakhir kristal cahaya yang tersembunyi di puncak menara tertinggi.",
+          "Perjalanan epik tersebut mengubah Rian dari seorang anak yang pemalu menjadi pahlawan legendaris yang namanya akan selalu dikenang di dalam sejarah keajaiban negeri dongeng selamanya."
+        ]
+      },
+      {
+        id: 8,
+        title: "Kopi Terakhir di Ujung Senja",
+        category: "misteri",
+        label: "Misteri",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80", // Tema: Kedai Kopi & Suasana Senja
+        excerpt: "Sepucuk surat bertuliskan tinta biru di bawah cangkir keramik sebuah kedai tua.",
+        paragraphs: [
+          "Kedai kopi kecil bernuansa vintage bernama Kopitiam Senja itu sudah bersiap menurunkan tirai gulungnya ketika Nadya, sang barista sekaligus pemilik kedai, membereskan sisa cangkir kotor di meja nomor empat. Suasana di luar kedai begitu lengang karena rintik gerimis halus mulai turun membasahi permukaan jalanan aspal kota.",
+          "Ketika Nadya mengangkat piring kecil alas cangkir keramik putih bergambar bunga, matanya secara tidak sengaja menangkap selembar kertas kecil yang terlipat sangat rapi di bagian bawahnya. Di atas permukaan kertas yang sudah agak menguning dimakan usia itu, tertulis satu kalimat menggunakan goresan tinta biru tua.",
+          "Kalimat itu berbunyi: 'Jangan pernah percaya pada jarum jam dinding di stasiun kereta kota tua ketika tepat menunjuk pukul tujuh malam.' Nadya langsung mengerutkan keningnya dalam-dalam, merasakan sensasi merinding menjalar di sekujur tengkuknya.",
+          "Stasiun kereta api kota yang sudah tua itu letaknya tidak sampai dua ratus meter di seberang kedainya, dan bangunan bersejarah tersebut telah ditutup total oleh pemerintah kota sejak sepuluh tahun silam akibat insiden kecelakaan misterius yang merenggut banyak korban jiwa.",
+          "Keesokan harinya, tepat ketika matahari mulai terbenam di ufuk barat dan langit berubah jingga kelam, didorong oleh rasa penasaran yang teramat kuat, Nadya menyusup masuk melalui celah pagar seng stasiun terbengkalai itu.",
+          "Di dalam aula utama bangunan tua yang dipenuhi debu tebal dan sarang laba-laba, jam dinding raksasa berkarat masih tergantung kokoh di atas loket tiket—dan suara detiknya berputar perlahan mendekati angka tujuh malam.",
+          "Tepat saat jarum jam dinding itu menunjuk angka tujuh pas, suara deru roda besi kereta uap bergemuruh nyaring di jalur rel yang sudah berkarat, membuka tabir rahasia kelam dimensi lain.",
+          "Tabir yang selama ini terkubur rapat di balik tembok stasiun tersebut kini terbuka lebar, menyambut Nadya ke dalam penelusuran misteri masa lalu yang belum pernah terpecahkan oleh siapapun."
+        ]
+      },
+      {
+        id: 9,
+        title: "Baris Kode Tanpa Akhir",
+        category: "scifi",
+        label: "Sci-Sci",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80", // Tema: Pemrograman & Terminal Komputer
+        excerpt: "File log misterius di server sekolah yang berisi catatan harian dari masa depan.",
+        paragraphs: [
+          "Pukul sebelas malam di ruang laboratorium komputer sekolah yang sunyi senyap, layar monitor di hadapan Dimas tiba-tiba berkedip tajam sebanyak tiga kali sebelum berubah total menjadi warna hijau pekat khas antarmuka terminal sistem utama era tahun 2050.",
+          "Sebagai siswa jurusan RPL yang hobi bereksperimen dengan jaringan, Dimas awalnya mengira itu adalah gangguan *buffer* memori biasa akibat skrip uji coba yang baru saja ia jalankan di server lokal.",
+          "Namun, dugaannya runtuh seketika ketika sebuah jendela program terminal baru terbuka secara otomatis, menampilkan baris demi baris kode program teks yang diketik sendiri dengan kecepatan super tinggi tanpa ada satu pun tangan manusia yang menyentuh papan ketik.",
+          "Sebuah file log data terenkripsi bernama catatan_waktu_v2.log tersimpan otomatis di direktori akar server lokal sekolah, memicu rasa penasaran sekaligus ketegangan di dalam dadanya.",
+          "Dengan jantung yang berdegup kencang tak karuan, Dimas mendekatkan wajahnya ke layar dan membuka isi file tersebut menggunakan perintah teks dasar. Baris kalimat pertama langsung sukses membuatnya tertegun kaku.",
+          "Kalimat itu bertuliskan: 'Halo, Dimas masa kini. Jangan pernah mencoba membatalkan proyek pameran teknologi kecerdasan buatan besok pagi, karena di situlah awal mula penemuan besarmu diakui oleh lembaga riset dunia.'",
+          "Yang lebih mencengangkan lagi, file data tersebut ternyata memuat seluruh rincian kode pemrograman mutakhir beserta solusi pemecahan *bug* rumit yang baru akan ia temui saat sesi presentasi di hadapan para juri nasional esok hari.",
+          "Menyadari bahwa dirinya kini terhubung secara kuantum dengan celah waktu masa depan, Dimas menarik napas dalam-dalam, tersenyum kecil di balik pantulan cahaya monitor yang berpendar, siap menyongsong hari sejarah esok pagi."
+        ]
+      },
+      {
+        id: 10,
+        title: "Melodi Hati di Bawah Lampu Jalan",
+        category: "romantis",
+        label: "Romantis",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80", // Tema: Musik Akustik & Lampu Jalan
+        excerpt: "Pertemuan dua musisi jalanan yang menyatukan nada gitar dan vokal dalam satu melodi.",
+        paragraphs: [
+          "Setiap malam Minggu tiba, sudut trotoar Jalan Braga yang ikonik selalu dipenuhi oleh para pejalan kaki yang ingin menikmati syahdunya suasana malam kota Bandung. Di sanalah Vino biasa duduk di atas kursi lipat kecil sambil memetik senar gitar akustiknya.",
+          "Ia membawakan deretan lagu balada bertema sendu di bawah sorotan lampu jalan kuning yang temaram, berharap ada telinga yang sudi mendengarkan alunan musik sederhananya di tengah hiruk-pikuk kota.",
+          "Suatu malam, ketika ia sedang menyanyikan lagu favoritnya, seorang gadis berwajah teduh mengenakan mantel rajut abu-abu bernama Clara berhenti tepat di hadapannya sambil membawa tas ransel kain.",
+          "Tanpa diduga, begitu masuk pada bagian *refrain*, Clara ikut menyanyikan lirik lagu tersebut dengan suara alto yang begitu jernih, merdu, dan langsung menghipnotis siapa saja yang lewat di sekitar trotoar.",
+          "Sejak pertemuan musikal yang tak sengaja itu, keduanya sepakat untuk membentuk duo akustik jalanan setiap akhir pekan demi menyalurkan hobi sekaligus menghibur para pejalan kaki yang melintas.",
+          "Obrolan hangat seputar tangga nada, lirik puitis, dan mimpi besar masa depan perlahan menumbuhkan benih-benih cinta yang tulus dan suci di antara hati mereka berdua dari minggu ke minggu.",
+          "Di bawah rintik gerimis malam yang romantis dan kehangatan cahaya lampu kota, perpaduan petikan senar gitar Vino dan suara merdu Clara menjelma menjadi sebuah simfoni abadi.",
+          "Simfoni yang berhasil mengikat dua hati dalam satu irama rasa yang takkan pernah terpisahkan oleh waktu, menjadikan trotoar jalanan sebagai saksi bisu kebahagiaan mereka."
+        ]
+      },
+      {
+        id: 11,
+        title: "Lukisan yang Berbicara",
+        category: "dongeng",
+        label: "Dongeng & Fantasi",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=1200&q=80", // Tema: Lukisan & Seni Kanvas
+        excerpt: "Lukisan pemandangan di ruang tamu kakek yang berubah warna mengikuti pergantian musim.",
+        paragraphs: [
+          "Di dinding ruang tamu rumah kakek yang bergaya klasik tergantung sebuah lukisan pemandangan lembah pegunungan kuno yang sangat indah dengan bingkai kayu jati berukir motif flora yang rumit.",
+          "Hal yang paling menakjubkan sekaligus misterius dari lukisan itu adalah kemampuannya yang luar biasa; setiap kali musim hujan atau kemarau tiba di dunia nyata, warna daun dan bentuk awan di dalam kanvas ikut berubah.",
+          "Suatu malam ketika badai petir besar melanda kawasan desa dan aliran listrik rumah mendadak padam total, Tari kecil berjalan mendekati lukisan itu sambil membawa sebatang lilin bernyala terang.",
+          "Ia terkejut bukan kepalang ketika melihat pendaran cahaya keemasan yang lembut tiba-tiba memancar keluar dari permukaan kanvas lukisan yang tadinya gelap gulita tanpa suara.",
+          "Sosok pelukis tua misterius berjanggut putih yang digambarkan sedang duduk di tepi danau dalam lukisan itu tiba-tiba bergerak hidup; ia menoleh pelan ke arah Tari, tersenyum ramah.",
+          "Ia mengayunkan tangannya seolah mengisyaratkan agar gadis cilik itu mendekat ke arah bingkai, membukakan tabir keajaiban yang selama ini tersembunyi di balik goresan cat minyak.",
+          "Ternyata, bingkai lukisan tersebut adalah sebuah portal dimensi magis menuju ke Negeri Kanvas, tempat tersimpannya warna-warna pelangi dunia yang harus dijaga dari kegelapan.",
+          "Tanpa rasa takut sedikit pun di dalam hatinya, Tari melangkah maju menembus bingkai kanvas, memulai sebuah petualangan magis luar biasa yang mengubah hidupnya."
+        ]
+      },
+      {
+        id: 12,
+        title: "Senyum di Stasiun Terakhir",
+        category: "drama",
+        label: "Drama & Kehidupan",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&w=1200&q=80", // Tema: Kereta Api & Peron Stasiun
+        excerpt: "Perjalanan kereta terakhir membawa seorang anak rantau kembali ke pelukan ayahnya.",
+        paragraphs: [
+          "Rangkaian kereta ekonomi malam itu meluncur pelan membelah keheningan kawasan pedesaan menuju stasiun kecil di kota kelahirannya. Dimas, yang duduk terpaku di dekat jendela kaca berembun, menatap kosong ke arah kegelapan.",
+          "Ia merenungi perjalanan hidupnya setelah empat tahun penuh perjuangan merantau demi meraih gelar sarjana impian di kota metropolitan yang bising dan penuh dengan tekanan mental.",
+          "Beban hidup di perantauan, mulai dari kerasnya persaingan akademis hingga pekerjaan paruh waktu hingga larut malam, sempat membuatnya jarang pulang dan menghubungi sang ayah di desa.",
+          "Rasa penyesalan yang mendalam kerap mencengkeram hatinya setiap kali ia teringat kondisi fisik ayahnya yang semakin menua dimakan usia tanpa ada yang mendampingi di rumah.",
+          "Ketika rem kereta berdecit nyaring dan petugas meneriakkan nama stasiun tujuannya, Dimas dengan langkah berat membawa ranselnya turun ke peron stasiun yang sunyi senyap.",
+          "Di ujung peron yang basah oleh embun malam, sosok lelaki paruh baya berjaket rajut pudar berdiri dengan sabar menanti kedatangannya di bawah temaram lampu pijar.",
+          "Ia menyambut kepulangan sang anak tercinta dengan senyuman tulus yang paling mengharukan di dunia, menghapus segala kepenatan yang dipikul Dimas selama di perantauan.",
+          "Deapan hangat sang ayah malam itu menyadarkan Dimas sepenuhnya bahwa rumah sejati bukanlah sebuah tempat, melainkan di mana keluarganya berada dan menanti."
+        ]
+      },
+      {
+        id: 13,
+        title: "Kucing Hitam di Lorong Waktu",
+        category: "misteri",
+        label: "Misteri",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=1200&q=80", // Tema: Kucing Hitam Misterius
+        excerpt: "Seekor kucing hitam selalu muncul tepat pukul dua belas malam di loteng rumah tua.",
+        paragraphs: [
+          "Setiap kali jarum jam bandul antik bergaya Victoria di ruang tengah berdentang tepat sebanyak dua belas kali menandakan tibanya tengah malam, seekor kucing hitam legam selalu muncul di ambang pintu loteng.",
+          "Kucing bertubuh langsing dengan sepasang mata bercahaya hijau zamrud itu tidak pernah sekalipun mengeluarkan suara mengeong, melainkan berjalan anggun menuju dinding papan kayu di sudut ruangan.",
+          "Ia menatap tajam ke arah Dika seolah sedang memberikan sebuah isyarat rahasia yang mendesak, membuat bulu kuduk remaja lelaki itu meremang setiap kali melihat kehadirannya.",
+          "Didorong rasa penasaran yang bercampur rasa ngeri, pada suatu malam Dika memberanikan diri mendekati dinding tempat kucing itu berdiri, lalu memeriksa celah papan kayu.",
+          "Di balik papan lapuk yang sering dicakar-cakar oleh hewan tersebut, jarinya menyentuh sebuah tuas besi berkarat yang ketika ditekan membuka sebuah ruang bawah tanah tersembunyi.",
+          "Ruangan rahasia tersebut ternyata menyimpan tumpukan arsip jurnal penelitian ilmiah milik kakek buyutnya yang hilang secara misterius pada awal abad kesembilan belas.",
+          "Arsip itu juga dilengkapi dengan skema rancangan mesin penjelajah waktu portabel yang diklaim dapat menembus dimensi masa lalu tanpa mengubah alur sejarah.",
+          "Misteri besar keluarga Dika yang selama ini terkubur rapat kini mulai tersingkap perlahan, berkat petunjuk ajaib dari sang kucing hitam penjaga lorong waktu."
+        ]
+      },
+      {
+        id: 14,
+        title: "Surat dari Tahun 2030",
+        category: "scifi",
+        label: "Sci-Fi",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80", // Tema: Teknologi & Pesan Digital
+        excerpt: "Pesan singkat di ponsel jadul yang dikirim oleh dirinya sendiri dari masa depan.",
+        paragraphs: [
+          "Ponsel genggam model lama milik Gilang tiba-tiba bergetar keras di atas meja belajarnya yang dipenuhi tumpukan buku modul pemrograman, memecah keheningan kamar kosnya di malam hari.",
+          "Layar kecil monokrom itu menampilkan sebuah pesan singkat SMS masuk dari nomor acak yang sama sekali tidak terdaftar di operator telekomunikasi manapun di tanah air.",
+          "Begitu dibuka, isi teks pesan tersebut sukses membuat bulu kuduk di seluruh tubuh Gilang merinding seketika: 'Gilang, segera ambil flashdisk biru di laci meja sekarang juga.'",
+          "Kalimat itu dilanjutkan dengan peringatan: 'Dan jangan pernah berikan kepada siapa pun sebelum hari Senin tiba demi masa depan kariermu di dunia teknologi.'",
+          "Dengan tangan yang bergetar hebat karena diliputi rasa takut bercampur penasaran, Gilang menarik laci meja belajarnya yang macet dan menemukan sebuah flashdisk biru.",
+          "Flashdisk itu berisi draf kode program kecerdasan buatan revolusioner yang baru saja ia selesaikan sore tadi sebelum ditinggal tidur dalam kelelahan.",
+          "Peringatan misterius dari masa depan itu ternyata datang tepat waktu, menyelamatkan hasil karya ciptanya dari upaya licik rekan satu timnya.",
+          "Kini, Gilang memandang masa depannya dengan rasa takjub dan keyakinan penuh bahwa sains dan waktu menyimpan sejuta misteri indah."
+        ]
+      },
+      {
+        id: 15,
+        title: "Peta Menuju Pulau Impian",
+        category: "dongeng",
+        label: "Dongeng & Fantasi",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?auto=format&fit=crop&w=1200&q=80", // Tema: Petualangan & Laut Tropis
+        excerpt: "Selembar peta usang di buku sejarah menuntun tiga sahabat pada pelayaran rahasia.",
+        paragraphs: [
+          "Di balik halaman sampul tebal sebuah ensiklopedia maritim tua di gudang belakang sekolah, tiga orang sahabat karib menemukan selembar perkamen kuno bergambar kompas emas.",
+          "Perkamen itu bertuliskan koordinat misterius menuju sebuah pulau berbentuk bulan sabit yang konon menyimpan rahasia keajaiban alam semesta.",
+          "Ketika perkamen usang itu tak sengaja tersorot oleh sinar lampu senter pintar mereka di malam hari, garis-garis jalur pelayaran rahasia mendadak menyala berkilauan.",
+          "Digerakkan oleh semangat jiwa muda dan rasa ingin tahu yang menggebu-gebu, ketiganya memutuskan merakit sebuah perahu kayu sederhana milik paman mereka.",
+          "Mereka memulai pelayaran rahasia menembus kabut laut ajaib menuju koordinat pulau dalam peta, menghadapi berbagai ombak kecil dan angin haluan.",
+          "Setelah berhari-hari terombang-ambing di tengah lautan tenang yang berkilau, mereka akhirnya tiba di sebuah pulau tersembunyi yang ditumbuhi pepohonan kristal.",
+          "Di pusat pulau tersebut, mereka menemukan mata air kebijaksanaan yang menganugerahi wawasan luar biasa tentang arti persahabatan sejati.",
+          "Petualangan luar biasa itu kini menjadi kenangan terindah masa remaja yang takkan pernah mereka lupakan hingga akhir hayat."
+        ]
+      },
+      {
+        id: 16,
+        title: "Payung Kuning di Tengah Gerimis",
+        category: "romantis",
+        label: "Romantis",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1519692933481-e162a57d6721?auto=format&fit=crop&w=1200&q=80", // Tema: Hujan & Suasana Kampus Romantis
+        excerpt: "Berbagi satu payung kuning di depan gerbang kampus menjadi awal kisah cinta.",
+        paragraphs: [
+          "Hujan lebat turun dengan sangat tiba-tiba di sore hari ketika jam kuliah terakhir baru saja selesai dibubarkan oleh dosen pengampu mata kuliah.",
+          "Laras berdiri termangu seorang diri di teras utama fakultas, menggigit bibir karena ia lupa membawa payung lipat di dalam tas jinjing miliknya.",
+          "Di tengah kebingungannya, seorang mahasiswa berjaket denim terang bernama Fajar tiba-tiba mendekatinya dari arah samping dengan langkah santai.",
+          "Ia membuka lebar sebuah payung berwarna kuning cerah berukuran besar, dan menawarkan tumpangan payung hingga ke halte bus seberang jalan kampus.",
+          "Sepanjang perjalanan pendek menyusuri trotoar kampus yang basah oleh air hujan, obrolan mengalir hangat di antara mereka berdua.",
+          "Mereka membahas mulai dari hobi membaca buku novel klasik hingga kecintaan pada racikan kopi hitam nusantara di kedai-kedai kecil.",
+          "Payung berwarna kuning cerah itu mendadak menjadi saksi bisu yang romantis tentang bagaimana dua jiwa yang tadinya asing perlahan merajut cinta.",
+          "Hingga hari ini, setiap kali langit kampus mendung dan gerimis turun, kenangan tentang payung kuning selalu menghadirkan senyuman tulus di wajah Laras."
+        ]
+      },
+      {
+        id: 17,
+        title: "Aroma Roti Panggang Nenek",
+        category: "drama",
+        label: "Drama & Kehidupan",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&q=80", // Tema: Roti Panggang & Dapur Hangat
+        excerpt: "Resep warisan keluarga yang membangkitkan kembali kenangan hangat masa kecil.",
+        paragraphs: [
+          "Aroma khas mentega gurih bercampur vanila manis yang menyeruak mengepul dari dapur selalu berhasil membangunkan Maya setiap kali akhir pekan pagi tiba.",
+          "Sang nenek, dengan senyuman ramah dan kesabaran luar biasa, selalu dengan telaten mengajarinya cara menguleni adonan roti lapis legit resep turun-temurun.",
+          "Buku catatan resep tua bersampul kain kanvas usang dengan goresan tulisan tangan sang nenek kini menjadi pegangan paling berharga bagi Maya.",
+          "Ia meletakkan buku itu di atas meja peracikan toko roti kecil miliknya di sudut kota yang tenang dan nyaman dikunjungi pelanggan setia.",
+          "Setiap pelanggan setia yang datang mencicipi roti panggang buatan Maya selalu memuji kelezatan rasanya yang konsisten dari tahun ke tahun.",
+          "Seolah mereka dapat merasakan langsung ketulusan kasih sayang seorang nenek di setiap gigitan rotinya yang lembut dan menggugah selera.",
+          "Kenangan manis masa kecil di desa bersama sang nenek terus hidup bernyawa dalam setiap adonan kue yang Maya kerjakan setiap hari.",
+          "Toko roti sederhana berkonsep klasik itu kini menjelma menjadi tempat berpulang yang hangat bagi siapa saja yang merindukan kehangatan rumah."
+        ]
+      },
+      {
+        id: 18,
+        title: "Putri Penjaga Hutan Cahaya",
+        category: "dongeng",
+        label: "Dongeng & Fantasi",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80", // Tema: Hutan Ajaib & Alam
+        excerpt: "Kisah peri penjaga hutan yang melindungi pohon kehidupan dari kegelapan.",
+        paragraphs: [
+          "Jauh tersembunyi di balik barisan pegunungan berkabut tebal, berdiri Hutan Cahaya yang pepohonannya selalu memancarkan pendaran cahaya biru lembut.",
+          "Elara, sang putri peri muda berambut keperakan, mendedikasikan seluruh hidupnya untuk merawat akar Pohon Kehidupan yang suci dan keramat.",
+          "Ketika badai kabut bayangan hitam buatan penyihir durjana mencoba merangsek masuk, Elara siaga menghadapi ancaman tersebut.",
+          "Ia bersama para sekutu satwa penjaga bersatu padu menyalakan kembali kristal pelindung purba di tengah lingkaran batu magis.",
+          "Berkat keberanian luar biasa dan kemurnian hati sang putri peri, kegelapan berhasil dipukul mundur dan keindahan hutan kembali pulih.",
+          "Hutan Cahaya kini kembali bersinar terang benderang, menjadi lambang harapan abadi bagi seluruh makhluk penghuni negeri dongeng.",
+          "Kisah kepahlawanan Putri Elara terus diabadikan dalam nyanyian angin malam yang berbisik di antara pepohonan kuno berukuran raksasa.",
+          "Kedamaian abadi akhirnya merajai seluruh pelosok negeri, berkat kesetiaan seorang penjaga cahaya yang berhati tulus."
+        ]
+      },
+      {
+        id: 19,
+        title: "Misteri Kotak Musik Kuno",
+        category: "misteri",
+        label: "Misteri",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1200&q=80", // Tema: Kotak Musik & Antik
+        excerpt: "Kotak musik berukir naga yang berbunyi sendiri setiap kali hujan badai.",
+        paragraphs: [
+          "Kotak musik antik berukir naga emas yang tersimpan di dalam peti kayu berdebu di loteng tua mendadak berdenting mengeluarkan melodi klasik.",
+          "Melodi indah itu berbunyi tanpa perlu diputar kuncinya setiap kali sambaran petir menghantam langit saat hujan badai melanda desa.",
+          "Alunan nada misterius tersebut merupakan sandi rahasia peninggalan keluarga bangsawan masa lalu yang merujuk pada letak penyimpanan.",
+          "Penyimpanan kapsul waktu rahasia tersembunyi di balik dinding perapian ruang utama rumah peninggalan era kolonial tersebut.",
+          "Penyelidikan sejarah mendalam yang dilakukan cucunya berhasil membongkar lembaran silsilah keluarga yang selama ini tertutup rapat.",
+          "Kapsul waktu berharga itu berisi surat-surat wasiat dan dokumen penting yang menceritakan perjuangan hidup para leluhur mereka.",
+          "Misteri kotak musik kuno akhirnya terpecahkan tuntas, meninggalkan warisan kisah sejarah keluarga yang sangat berharga bagi generasi penerus.",
+          "Kini, kotak musik itu diletakkan di lemari kaca khusus, berdampingan dengan bingkai foto kenangan para leluhur mereka."
+        ]
+      },
+      {
+        id: 20,
+        title: "Detik Terakhir Sang Penjelajah Waktu",
+        category: "scifi",
+        label: "Sci-Fi",
+        duration: "Standar (8 Paragraf)",
+        image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80", // Tema: Ruang Angkasa & Kuantum
+        excerpt: "Ilmuwan muda yang harus memperbaiki sirkuit kuantum sebelum dimensi waktu runtuh.",
+        paragraphs: [
+          "Ardi terjebak seorang diri di antara celah dimensi kosmik kuantum setelah prototipe mesin waktu eksperimentalnya mengalami lonjakan daya.",
+          "Lonjakan daya muat energi magnetik yang tidak stabil itu membuat ruang di sekitarnya bergetar hebat memancarkan cahaya menyilaukan.",
+          "Di hadapan kedua matanya, jutaan garis lintas waktu berpilin bagai benang cahaya kosmik pijar yang siap runtuh total kapan saja.",
+          "Dengan kepala dingin, tangan cekatan, dan keahlian teknis tingkat tinggi, ia berhasil menyolder ulang inti sirkuit mikro.",
+          "Ia memperbaikinya tepat sepersekian detik sebelum garis waktunya terhapus permanen dari eksistensi semesta raya yang luas.",
+          "Layar monitor kendali utama berangsur-angsur kembali menyala normal dengan warna biru terang, menandakan keberhasilannya menaklukkan anomali.",
+          "Ardi menarik napas lega yang amat panjang, menyadari sepenuhnya bahwa penjelajahan waktu menuntut tanggung jawab moral yang besar.",
+          "Ia berjanji pada dirinya sendiri untuk menggunakan pengetahuan kosmik tersebut demi kemajuan peradaban umat manusia di masa depan."
+        ]
+      }
+    ];
+
+    const storyGrid = document.getElementById('story-grid');
+    const catalogView = document.getElementById('catalog-view');
+    const readerView = document.getElementById('reader-view');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    // Render Kartu Cerita sesuai Kategori
+    function renderStories(filter = 'all') {
+      storyGrid.innerHTML = '';
+      const filtered = filter === 'all' ? stories : stories.filter(s => s.category === filter);
+
+      filtered.forEach(story => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.onclick = () => openReader(story.id);
+        card.innerHTML = `
+          <div>
+            <div class="genre">${story.label} • ${story.duration}</div>
+            <h3>${story.id}. ${story.title}</h3>
+            <p>${story.excerpt}</p>
+          </div>
+          <span class="read-more">Baca Cerita Ini →</span>
+        `;
+        storyGrid.appendChild(card);
+      });
+    }
+
+    // Buka Mode Baca Terfokus
+    function openReader(id) {
+      const story = stories.find(s => s.id === id);
+      if (!story) return;
+
+      document.getElementById('reader-title').textContent = story.title;
+      document.getElementById('reader-meta').textContent = `Kategori: ${story.label} • ${story.duration}`;
+      document.getElementById('reader-image').src = story.image;
+      
+      const contentDiv = document.getElementById('reader-content');
+      contentDiv.innerHTML = story.paragraphs.map(p => `<p>${p}</p>`).join('');
+
+      catalogView.classList.add('hidden');
+      readerView.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Kembali ke Daftar Katalog
+    function closeReader() {
+      readerView.classList.add('hidden');
+      catalogView.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Event Klik Tombol Filter Kategori
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderStories(btn.getAttribute('data-filter'));
+      });
+    });
+
+    // Tampilkan semua cerita saat pertama kali dibuka
+    renderStories('all');
+
+    // Skrip Dark/Light Mode & localStorage
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    if (localStorage.getItem('tema') === 'dark') {
+      body.classList.add('dark-mode');
+      themeToggle.textContent = '☀️ Mode Siang';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('tema', 'dark');
+        themeToggle.textContent = '☀️ Mode Siang';
+      } else {
+        localStorage.setItem('tema', 'light');
+        themeToggle.textContent = '🌙 Mode Malam';
+      }
+    });
+  </script>
+</body>
+</html>

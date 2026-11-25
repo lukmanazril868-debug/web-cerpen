@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beranda — Ruang Aksara</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a href="index.html" class="brand">📖 Ruang Aksara</a>
+    <nav>
+      <a href="index.html" class="active">Beranda</a>
+      <a href="cerita.html">Tempat Cerita</a>
+      <a href="tentang.html">Tentang</a>
+    </nav>
+    <button id="theme-toggle">🌙 Mode Malam</button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <span class="badge">KATALOG 20 CERITA DIGITAL</span>
+      <h1>Pilih Genre Favoritmu, Nikmati Setiap Kisahnya</h1>
+      <p>Jelajahi kumpulan 20 cerita pendek panjang mulai dari Romantis, Dongeng & Fantasi, Misteri, hingga Fiksi Ilmiah tanpa perlu lelah menggulir layar.</p>
+      <a href="cerita.html" class="btn-primary">Buka Katalog Cerita</a>
+    </section>
+
+    <div class="grid">
+      <div class="card" onclick="window.location.href='cerita.html'">
+        <div>
+          <div class="genre">💖 Romantis & Drama</div>
+          <h3>Kisah Hati & Kehidupan</h3>
+          <p>Cerita-cerita hangat tentang pertemuan, kerinduan keluarga, dan melodi cinta di bawah lampu jalan.</p>
+        </div>
+        <span class="read-more">Pilih Cerita →</span>
+      </div>
+
+      <div class="card" onclick="window.location.href='cerita.html'">
+        <div>
+          <div class="genre">🧚 Dongeng & Fantasi</div>
+          <h3>Dunia Imajinasi</h3>
+          <p>Petualangan menembus buku sihir, lukisan yang berbicara, dan pulau misterius di balik peta tua.</p>
+        </div>
+        <span class="read-more">Pilih Cerita →</span>
+      </div>
+
+      <div class="card" onclick="window.location.href='cerita.html'">
+        <div>
+          <div class="genre">🕵️ Misteri & Sci-Fi</div>
+          <h3>Teka-Teki & Masa Depan</h3>
+          <p>Rahasia lorong waktu, pesan dari tahun 2030, dan baris kode misterius di server sekolah.</p>
+        </div>
+        <span class="read-more">Pilih Cerita →</span>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 Ruang Aksara — Proyek Akhir Cloud Computing XII RPL[cite: 1]</p>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    if (localStorage.getItem('tema') === 'dark') {
+      body.classList.add('dark-mode');
+      themeToggle.textContent = '☀️ Mode Siang';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('tema', 'dark');
+        themeToggle.textContent = '☀️ Mode Siang';
+      } else {
+        localStorage.setItem('tema', 'light');
+        themeToggle.textContent = '🌙 Mode Malam';
+      }
+    });
+  </script>
+</body>
+</html>

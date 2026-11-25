@@ -1,0 +1,335 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+
+:root {
+  --bg-color: #faf7f2;
+  --text-color: #2c2825;
+  --text-muted: #6e655f;
+  --card-bg: #ffffff;
+  --accent: #8c5a3c;
+  --accent-soft: #f0e6dc;
+  --border: #e6dfd5;
+  --shadow: 0 10px 30px rgba(44, 40, 37, 0.05);
+}
+
+body.dark-mode {
+  --bg-color: #161514;
+  --text-color: #e8e2d9;
+  --text-muted: #9e958d;
+  --card-bg: #201e1c;
+  --accent: #d49a74;
+  --accent-soft: #2e2925;
+  --border: #332f2c;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  line-height: 1.75;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+h1, h2, h3, .serif {
+  font-family: 'Lora', serif;
+  font-weight: 600;
+}
+
+/* Navbar Estetik */
+header {
+  background-color: var(--bg-color);
+  border-bottom: 1px solid var(--border);
+  padding: 1.2rem 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+}
+
+.brand {
+  font-family: 'Lora', serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+}
+
+nav {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.25s;
+  position: relative;
+}
+
+nav a:hover, nav a.active {
+  color: var(--accent);
+}
+
+nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent);
+  border-radius: 2px;
+}
+
+#theme-toggle {
+  background-color: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--border);
+  padding: 7px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+#theme-toggle:hover {
+  transform: translateY(-1px);
+}
+
+/* Container & Hero */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2.5rem 20px;
+}
+
+.hero {
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  margin-bottom: 3rem;
+}
+
+.hero .badge {
+  display: inline-block;
+  background-color: var(--accent-soft);
+  color: var(--accent);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.hero h1 {
+  font-size: 2.3rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+.hero p {
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto 1.8rem auto;
+}
+
+.btn-primary {
+  display: inline-block;
+  background-color: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  padding: 11px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.25s, transform 0.2s;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* Filter Kategori */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  background-color: var(--card-bg);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 8px 18px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.filter-btn.active {
+  background-color: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+
+/* Grid Kartu Cerita */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 22px;
+}
+
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.card .genre {
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 18px;
+}
+
+.read-more {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+/* Mode Baca Terfokus (Tanpa Scroll Panjang) */
+.reader-box {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-back {
+  background-color: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+}
+
+.btn-back:hover {
+  opacity: 0.85;
+}
+
+.reader-box h2 {
+  font-size: 2rem;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.meta {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--border);
+}
+
+.reader-content p {
+  font-family: 'Lora', serif;
+  font-size: 1.08rem;
+  margin-bottom: 18px;
+  text-align: justify;
+  line-height: 1.9;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2.5rem 20px;
+  margin-top: 3rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    gap: 14px;
+  }
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  .reader-box {
+    padding: 24px;
+  }
+}

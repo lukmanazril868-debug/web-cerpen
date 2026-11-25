@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tentang — Ruang Aksara</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .info-card {
+      background: var(--card-bg, #ffffff);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+    .info-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .info-list li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .info-list li:last-child {
+      border-bottom: none;
+    }
+    .info-label {
+      font-weight: bold;
+      color: var(--text-main);
+    }
+    .info-value {
+      color: var(--text-muted);
+      text-align: right;
+    }
+    .purpose-list {
+      padding-left: 1.4rem;
+      margin: 0;
+      color: var(--text-main);
+    }
+    .purpose-list li {
+      margin-bottom: 0.8rem;
+      line-height: 1.7;
+    }
+    .purpose-list li:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="brand">📖 Ruang Aksara</a>
+    <nav>
+      <a href="index.html">Beranda</a>
+      <a href="cerita.html">Tempat Cerita</a>
+      <a href="tentang.html" class="active">Tentang</a>
+    </nav>
+    <button id="theme-toggle">🌙 Mode Malam</button>
+  </header>
+
+  <main class="container">
+    <div class="reader-box" style="max-width: 800px; margin: 0 auto;">
+      <h1 style="text-align: center; margin-bottom: 0.5rem;">Tentang Ruang Aksara</h1>
+      <p style="text-align: center; color: var(--text-muted); margin-bottom: 2rem;">Mengenal lebih dekat latar belakang, tujuan pembuatan, teknologi, dan pengembang di balik platform literasi ini.</p>
+      
+      <p style="line-height: 1.8; color: var(--text-main); margin-bottom: 1.5rem;">
+        <strong>Ruang Aksara</strong> adalah platform web interaktif yang dirancang khusus untuk menyajikan berbagai koleksi cerita pendek pilihan dengan beragam genre yang menarik—mulai dari romantis, drama kehidupan, dongeng fantasi, misteri, hingga fiksi ilmiah (Sci-Fi). Website ini dikembangkan sebagai sarana literasi digital yang bersih, nyaman, dan ramah pembaca.
+      </p>
+
+      <!-- BAGIAN TUJUAN PEMBUATAN WEB -->
+      <div class="info-card">
+        <h3 style="margin-bottom: 1rem; color: var(--text-main);">🎯 Tujuan Pembuatan Website</h3>
+        <ol class="purpose-list">
+          <li><strong>Meningkatkan Minat Baca & Literasi Digital:</strong> Menyediakan wadah membaca cerita pendek yang bebas gangguan, ringan diakses kapan saja, dan nyaman di mata melalui fitur Mode Siang dan Mode Malam.</li>
+          <li><strong>Menyajikan Ragam Genre Pilihan:</strong> Memudahkan pembaca menemukan bacaan sesuai suasana hati melalui sistem filter kategori dan mode baca terfokus.</li>
+          <li><strong>Implementasi Proyek Akhir Cloud Computing:</strong> Menerapkan konsep pengembangan web statis modern serta proses <em>deployment</em> aplikasi ke layanan <em>cloud hosting</em> (GitHub Pages) sebagai syarat kelulusan praktik kelas XII RPL.</li>
+          <li><strong>Mengasah Kemampuan Pengembangan Web:</strong> Melatih keterampilan merancang antarmuka pengguna (UI/UX) yang responsif serta manipulasi DOM interaktif menggunakan JavaScript murni.</li>
+        </ol>
+      </div>
+
+      <!-- BAGIAN RINCIAN INFORMASI PROYEK -->
+      <div class="info-card">
+        <h3 style="margin-bottom: 1rem; color: var(--text-main);">📋 Rincian & Informasi Proyek</h3>
+        <ul class="info-list">
+          <li>
+            <span class="info-label">🛠️ Dibuat Pakai</span>
+            <span class="info-value">HTML5, CSS3, & Vanilla JavaScript (Responsive Web Design)</span>
+          </li>
+          <li>
+            <span class="info-label">👥 Dibuat Oleh</span>
+            <span class="info-value">LUKMAN ARDIANSYAH ROMADHONI XII RPL</span>
+          </li>
+          <li>
+            <span class="info-label">📅 Tanggal Pembuatan</span>
+            <span class="info-value">24 November 2026</span>
+          </li>
+          <li>
+            <span class="info-label">📂 Status Proyek</span>
+            <span class="info-value">Selesai & Siap Dipresentasikan</span>
+          </li>
+        </ul>
+      </div>
+
+      <div style="margin-top: 2.5rem; text-align: center;">
+        <a href="index.html" class="filter-btn active" style="display: inline-block; text-decoration: none; padding: 0.8rem 1.8rem; border-radius: 8px;">← Kembali ke Beranda</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 Ruang Aksara — projek web kelas XII RPL</p>
+  </footer>
+
+  <script>
+    // Skrip Dark/Light Mode & localStorage
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    if (localStorage.getItem('tema') === 'dark') {
+      body.classList.add('dark-mode');
+      themeToggle.textContent = '☀️ Mode Siang';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('tema', 'dark');
+        themeToggle.textContent = '☀️ Mode Siang';
+      } else {
+        localStorage.setItem('tema', 'light');
+        themeToggle.textContent = '🌙 Mode Malam';
+      }
+    });
+  </script>
+</body>
+</html>
